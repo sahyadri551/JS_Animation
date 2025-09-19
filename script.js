@@ -72,10 +72,16 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-window.addEventListener('click', explode);
 window.addEventListener('resize', () => {
     c.width = window.innerWidth;
     c.height = window.innerHeight;
 });
 
-animate();
+let box = document.getElementById('box');
+let btn = document.getElementById('btn');
+
+btn.addEventListener('click', () => {
+    box.style.display="none";
+    window.addEventListener('click', explode);
+    animate();
+});
