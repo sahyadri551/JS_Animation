@@ -5,7 +5,8 @@ let ctx = c.getContext('2d');
 
 c.width = window.innerWidth;
 c.height = window.innerHeight;
-
+let sound = document.getElementById('audio');
+            
 let arr = [];
 let n = 100;
 
@@ -37,6 +38,9 @@ function update(p) {
 }
 
 function explode(e) {
+    sound.currentTime = 0; 
+    sound.play();
+
     const x = e.clientX;
     const y = e.clientY;
 
@@ -58,9 +62,9 @@ function animate() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
     ctx.fillRect(0, 0, c.width, c.height);
     for (let i = arr.length - 1; i >= 0; i--) {
-        const p = arr[i];
-        update(p);
+        let p = arr[i];
         draw(p);
+        update(p);
         if (p.op <= 0) {
             arr.splice(i, 1);
         }
