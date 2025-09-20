@@ -76,11 +76,6 @@ function animate() {
     animeId = requestAnimationFrame(animate);
 }
 
-window.addEventListener('resize', () => {
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
-});
-
 
 btn.addEventListener('click', () => {
     box.style.display="none";
@@ -151,6 +146,8 @@ function animate2() {
     animeId = requestAnimationFrame(animate2);
 }
 window.addEventListener('resize', () => {
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
     x = c.width / 2;
     y = c.height / 2;
 });
