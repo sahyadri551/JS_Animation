@@ -1,12 +1,14 @@
-// script.js
-
 let c = document.getElementById('animation');
 let ctx = c.getContext('2d');
 
 c.width = window.innerWidth;
 c.height = window.innerHeight;
 let sound = document.getElementById('audio');
-            
+
+let btn2 = document.getElementById('circle');
+let box = document.getElementById('box');
+let btn = document.getElementById('firework');
+
 let arr = [];
 let n = 100;
 
@@ -77,11 +79,86 @@ window.addEventListener('resize', () => {
     c.height = window.innerHeight;
 });
 
-let box = document.getElementById('box');
-let btn = document.getElementById('btn');
 
 btn.addEventListener('click', () => {
     box.style.display="none";
     window.addEventListener('click', explode);
     animate();
+});
+
+btn2.addEventListener('click', () => {
+    box.style.display="none";
+    animate2();
+});
+
+// Animation 2
+
+ let r = 50;
+let max = 100;
+let min = 50;
+let sp = 0.5;
+let grow = true;
+let ease = 0.05; 
+
+let x = c.width / 2;
+let y = c.height / 2;
+
+const circle = {
+    x: x,
+    y: y
+};
+const mouse = {
+    x: x,
+    y: y
+};
+
+window.addEventListener('mousemove', (e) => {
+    const rect = c.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+});
+
+function animate2() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    const dx = mouse.x - circle.x;
+    const dy = mouse.y - circle.y;
+    circle.x += dx * ease;
+    circle.y += dy * ease;
+    if (grow) {
+        r += sp;
+        if (r >= max) {
+            grow = false;
+        }
+    } else {
+        r -= sp;
+        if (r <= min) {
+            grow = true;
+        }
+    }
+
+    ctx.beginPath();
+    ctx.arc(circle.x, circle.y, r + 15, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(227, 85, 206, 0.2)';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(circle.x, circle.y, r + 5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(227, 85, 206, 0.4)';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(circle.x, circle.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = '#e355ce';
+    ctx.fill();
+    requestAnimationFrame(animate2);
+}
+window.addEventListener('resize', () => {
+    x = canvas.width / 2;
+    y = canvas.height / 2;
+});
+
+btn2.addEventListener('click', () => {
+    box.style.display = "none";
+    window.removeEventListener('click', explode);
+    animate2();
 });
