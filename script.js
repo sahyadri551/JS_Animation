@@ -170,13 +170,20 @@ back.addEventListener('click', () => {
     c.removeEventListener('mouseup', stopDraw);
     c.removeEventListener('mouseout', stopDraw);
     c.removeEventListener('mousemove', draw2);
+    erasing = false;
+    drawColor = '#ffffff';
 });
 
 //animation 3
 let btn3 = document.getElementById('drawpad');
+let toolbar = document.getElementById('toolbar'); 
+let colorPicker = document.getElementById('colorPicker');
+let eraserBtn = document.getElementById('eraser'); 
 let isDraw = false;
 let lastX = 0;
 let lastY = 0;
+let colorVal = '#ffffff';
+let erasing = false;
 
 function stopDraw() {
     isDraw = false;
@@ -189,7 +196,11 @@ function startDraw(e) {
 
 function draw2(e) {
     if (!isDraw) return;
-    ctx.strokeStyle = "#fff";
+    if (erasing) {
+        ctx.strokeStyle = "#000"; 
+    } else {
+        ctx.strokeStyle = colorVal; 
+    }
     ctx.lineWidth = 8;
     ctx.lineCap = 'round';
     ctx.beginPath();
@@ -203,10 +214,20 @@ btn3.addEventListener('click', () => {
     console.log('clicked');
     box.style.display = 'none';
     back.style.display = 'block';
+    toolbar.style.display = 'flex';
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, c.width, c.height);
     c.addEventListener('mousedown', startDraw);
     c.addEventListener('mouseup', stopDraw);
     c.addEventListener('mouseout', stopDraw);
     c.addEventListener('mousemove', draw2);
+});
+
+colorPicker.addEventListener('change', (e) => {
+    colorVal = e.target.value;
+    erasing = false;
+});
+
+eraserBtn.addEventListener('click', () => {
+    erasing = true; 
 });

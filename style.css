@@ -31,20 +31,42 @@ body{
     margin: 15px 5px 0 5px; 
 }
 
-.btn:hover {
-    background-color: blue;
-}
-
 #back {
     position: fixed;
     top: 20px;
     left: 20px;
-    /* z-index: 10; */
     display: none;
     background-color: #6c757d;
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
+    border-radius: 5px;
+}
+
+#toolbar {
+    position: fixed;
+    top: 20px;
+    left: 150px; 
+    display: none; 
+    background-color: gray;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+#colorPicker {
+    border: none;
+    background: none;
+    width: 40px;
+    height: 40px;
+}
+
+.tool-btn {
+    margin-left: 15px;
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: #555;
+    color: white;
+    border: 1px solid #777;
     border-radius: 5px;
 }
