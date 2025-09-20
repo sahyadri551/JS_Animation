@@ -166,4 +166,47 @@ back.addEventListener('click', () => {
     ctx.clearRect(0, 0, c.width, c.height);
     window.removeEventListener('click', explode);
     arr = [];
+    c.removeEventListener('mousedown', startDraw);
+    c.removeEventListener('mouseup', stopDraw);
+    c.removeEventListener('mouseout', stopDraw);
+    c.removeEventListener('mousemove', draw2);
+});
+
+//animation 3
+let btn3 = document.getElementById('drawpad');
+let isDraw = false;
+let lastX = 0;
+let lastY = 0;
+
+function stopDraw() {
+    isDraw = false;
+}
+
+function startDraw(e) {
+    isDraw = true;
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+}
+
+function draw2(e) {
+    if (!isDraw) return;
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 8;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+}
+
+btn3.addEventListener('click', () => {
+    console.log('clicked');
+    box.style.display = 'none';
+    back.style.display = 'block';
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, c.width, c.height);
+    c.addEventListener('mousedown', startDraw);
+    c.addEventListener('mouseup', stopDraw);
+    c.addEventListener('mouseout', stopDraw);
+    c.addEventListener('mousemove', draw2);
 });
