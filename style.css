@@ -35,3 +35,16 @@ body{
     background-color: blue;
 }
 
+#back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    /* z-index: 10; */
+    display: none;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}

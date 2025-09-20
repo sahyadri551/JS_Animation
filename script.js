@@ -8,6 +8,8 @@ let sound = document.getElementById('audio');
 let btn2 = document.getElementById('circle');
 let box = document.getElementById('box');
 let btn = document.getElementById('firework');
+let back = document.getElementById('back');
+let animeId; 
 
 let arr = [];
 let n = 100;
@@ -71,7 +73,7 @@ function animate() {
             arr.splice(i, 1);
         }
     }
-    requestAnimationFrame(animate);
+    animeId = requestAnimationFrame(animate);
 }
 
 window.addEventListener('resize', () => {
@@ -82,13 +84,9 @@ window.addEventListener('resize', () => {
 
 btn.addEventListener('click', () => {
     box.style.display="none";
+    back.style.display="block";
     window.addEventListener('click', explode);
     animate();
-});
-
-btn2.addEventListener('click', () => {
-    box.style.display="none";
-    animate2();
 });
 
 // Animation 2
@@ -150,15 +148,25 @@ function animate2() {
     ctx.arc(circle.x, circle.y, r, 0, Math.PI * 2);
     ctx.fillStyle = '#e355ce';
     ctx.fill();
-    requestAnimationFrame(animate2);
+    animeId = requestAnimationFrame(animate2);
 }
 window.addEventListener('resize', () => {
-    x = canvas.width / 2;
-    y = canvas.height / 2;
+    x = c.width / 2;
+    y = c.height / 2;
 });
 
 btn2.addEventListener('click', () => {
     box.style.display = "none";
+    back.style.display = "block";
     window.removeEventListener('click', explode);
     animate2();
+});
+
+back.addEventListener('click', () => {
+    cancelAnimationFrame(animeId);
+    back.style.display = "none";
+    box.style.display = "block";
+    ctx.clearRect(0, 0, c.width, c.height);
+    window.removeEventListener('click', explode);
+    arr = [];
 });
